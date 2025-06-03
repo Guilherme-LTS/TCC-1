@@ -209,12 +209,12 @@ void publicaPesoReservatorio() {
             Serial.print("Peso do reservatorio: "); Serial.println(peso);
 
             if (peso < LIMITE_PESO_BAIXO_RESERVATORIO_KG && !alertaReservatorioEnviado) { // De config.h
-                client.publish(MQTT_TOPICO_ALERTA_PESO_AGUA, "Reservatorio com baixo nivel de racao!"); // De config.h
+                client.publish(MQTT_TOPICO_ALERTA_PESO_AGUA, "Reservatorio com baixo nivel de água!"); // De config.h
                 alertaReservatorioEnviado = true;
                 Serial.println("ALERTA: Peso baixo no reservatorio!");
             } else if (peso >= LIMITE_PESO_BAIXO_RESERVATORIO_KG && alertaReservatorioEnviado) {
                 // Opcional: Enviar mensagem de "normalizado"
-                // client.publish(MQTT_TOPICO_ALERTA_PESO, "Reservatorio com peso normalizado.");
+                client.publish(MQTT_TOPICO_ALERTA_PESO_AGUA, "Reservatorio com peso normalizado.");
                 alertaReservatorioEnviado = false;
                  Serial.println("Peso no reservatorio normalizado.");
             }
