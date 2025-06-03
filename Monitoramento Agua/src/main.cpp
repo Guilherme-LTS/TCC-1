@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "config.h" // Nosso arquivo de configuração para o sistema de ração
 
 // Bibliotecas necessárias
 #include <WiFi.h>
