@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include "config.h" // Nosso arquivo de configurações personalizadas
 
 // Bibliotecas necessárias
 #include <WiFi.h>
@@ -206,11 +205,11 @@ void publicaPesoReservatorio() {
         float peso = obterPesoReservatorio();
 
         if (peso != -1) { // Se a leitura foi bem sucedida
-            client.publish(MQTT_TOPICO_PESO_RESERVATORIO, String(peso).c_str()); // De config.h
+            client.publish(MQTT_TOPICO_PESO_RESERVATORIO_AGUA, String(peso).c_str()); // De config.h
             Serial.print("Peso do reservatorio: "); Serial.println(peso);
 
             if (peso < LIMITE_PESO_BAIXO_RESERVATORIO_KG && !alertaReservatorioEnviado) { // De config.h
-                client.publish(MQTT_TOPICO_ALERTA_PESO, "Reservatorio com baixo nivel de racao!"); // De config.h
+                client.publish(MQTT_TOPICO_ALERTA_PESO_AGUA, "Reservatorio com baixo nivel de racao!"); // De config.h
                 alertaReservatorioEnviado = true;
                 Serial.println("ALERTA: Peso baixo no reservatorio!");
             } else if (peso >= LIMITE_PESO_BAIXO_RESERVATORIO_KG && alertaReservatorioEnviado) {

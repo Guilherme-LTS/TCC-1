@@ -10,7 +10,6 @@ const char* PASSWORD_WIFI = "";
 
 
 // --- Configurações MQTT ---
-// !! IMPORTANTE: Use seu broker MQTT se tiver um, ou mantenha test.mosquitto.org para testes !!
 const char* MQTT_SERVER = "test.mosquitto.org";
 const int MQTT_PORT = 1883;
 const char* MQTT_CLIENT_ID = "ESP32_Canil_Client"; // ID único para o cliente MQTT
@@ -18,11 +17,11 @@ const char* MQTT_CLIENT_ID = "ESP32_Canil_Client"; // ID único para o cliente M
 // Tópicos MQTT (prefixo para evitar colisões, se necessário)
 #define MQTT_PREFIX "canilGuilherme/" // Adicione um prefixo se quiser
 #define MQTT_TOPIC_NIVEL_AGUA             MQTT_PREFIX "agua/nivel"
-#define MQTT_TOPICO_PESO_RESERVATORIO     MQTT_PREFIX "racao/reservatorio/peso"
+#define MQTT_TOPICO_PESO_RESERVATORIO_AGUA     MQTT_PREFIX "agua/reservatorio/peso"
 #define MQTT_TOPICO_TEMPERATURA           MQTT_PREFIX "ambiente/temperatura"
 #define MQTT_TOPICO_CONTROLE_AGUA_CMD     MQTT_PREFIX "agua/valvula/comando" // Para receber comandos
 #define MQTT_TOPICO_STATUS_VALVULA_STAT   MQTT_PREFIX "agua/valvula/status"  // Para enviar status
-#define MQTT_TOPICO_ALERTA_PESO           MQTT_PREFIX "racao/reservatorio/alerta"
+#define MQTT_TOPICO_ALERTA_PESO_AGUA           MQTT_PREFIX "agua/reservatorio/alerta"
 #define MQTT_TOPICO_ALERTA_TEMP           MQTT_PREFIX "ambiente/temperatura/alerta"
 // Tópico que estava no seu código original como "ESP32_RECEBE", unificar se for o mesmo que CONTROLE_AGUA_CMD
 #define MQTT_TOPICO_GENERICO_RECEBE       MQTT_PREFIX "geral/recebe" 
