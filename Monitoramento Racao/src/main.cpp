@@ -21,7 +21,7 @@ String my_topic_racao;
 
 // Variável para simular o total de ração no RESERVATÓRIO PRINCIPAL (em gramas)
 // No futuro, isso será substituído pela leitura de um sensor de peso real para o reservatório.
-float totalRacaoNoReservatorioSimulado = 2000.0; // Valor inicial, pode ser ajustado ou vir de uma configuração
+//float totalRacaoNoReservatorioSimulado = 2000.0;  Valor inicial, pode ser ajustado ou vir de uma configuração
 
 // --- Protótipos de Funções (Opcional, mas boa prática) ---
 void setup_wifi_racao();
@@ -59,8 +59,6 @@ void callback_racao(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         conc_payload += ((char)payload[i]);
     }
-    // As variáveis globais my_payLoad_racao e my_topic_racao podem ser substituídas
-    // pelo uso direto de 'topic' e 'conc_payload' dentro desta função.
     my_payLoad_racao = conc_payload; 
     my_topic_racao = topic;
 
@@ -71,7 +69,8 @@ void callback_racao(char* topic, byte* payload, unsigned int length) {
 
     if (String(topic) == MQTT_TOPICO_RACAO_DISPENSAR_CMD) { // Do config.h
         if (my_payLoad_racao == "LIBERAR") {
-            dispensarRacao(); // Chama a função centralizada para dispensar
+            Serial.println("Comando 'LIBERAR' recebido via MQTT.");
+            dispensarRacao(); // Chama a função simplificada para dispensar
         }
     }
 }
@@ -133,35 +132,32 @@ void atualizaLedStatusMqttRacao() {
 }
 
 void dispensarRacao() {
-    if (totalRacaoNoReservatorioSimulado >= QUANTIDADE_RACAO_A_DISPENSAR_G) { // Do config.h
-        petServo.write(ANGULO_SERVO_ABERTO); // Do config.h
-        Serial.println("Dispensador: Servo Aberto.");
-        delay(TEMPO_SERVO_ABERTO_PARA_DISPENSA_MS); // Do config.h
-        petServo.write(ANGULO_SERVO_FECHADO); // Do config.h
-        Serial.println("Dispensador: Servo Fechado.");
-        
-        totalRacaoNoReservatorioSimulado -= QUANTIDADE_RACAO_A_DISPENSAR_G; // Do config.h
-        
-        Serial.print("Racao dispensada. Reservatorio simulado agora com: ");
-        Serial.print(totalRacaoNoReservatorioSimulado);
-        Serial.println("g");
-        Serial.println("------------------------------------------------------");
+    // Esta função não verifica mais o 'totalRacaoNoReservatorioSimulado'
+    // A decisão de chamar esta função já foi tomada (recipiente baixo ou comando MQTT)
 
-        // Publicar novo total do reservatório simulado
-        char totalStr[10];
-        dtostrf(totalRacaoNoReservatorioSimulado, 6, 2, totalStr);
-        client.publish(MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_TOTAL, totalStr);
+    petServo.write(ANGULO_SERVO_ABERTO); // Do config.h
+    Serial.println("Dispensador: Servo Aberto.");
+    // Publicar status do dispensador (opcional)
+    // client.publish(MQTT_TOPICO_RACAO_DISPENSADOR_STATUS, "ABERTO");
 
-    } else {
-        Serial.println("Nao ha racao suficiente no reservatorio (simulado) para dispensar!");
-        client.publish(MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_ALERTA, "Tentativa de dispensar, mas reservatorio SIMULADO de racao baixo!");
-    }
+    delay(TEMPO_SERVO_ABERTO_PARA_DISPENSA_MS); // Do config.h
+
+    petServo.write(ANGULO_SERVO_FECHADO); // Do config.h
+    Serial.println("Dispensador: Servo Fechado.");
+    // Publicar status do dispensador (opcional)
+    // client.publish(MQTT_TOPICO_RACAO_DISPENSADOR_STATUS, "FECHADO");
+    
+    Serial.println("Racao dispensada.");
+    Serial.println("------------------------------------------------------");
+
+    // Não há mais decremento de 'totalRacaoNoReservatorioSimulado' aqui
+    // Não há mais publicação do total do reservatório simulado daqui
 }
 
 void publicarDadosRacao() {
     // Publicar o peso do recipiente
     float pesoNoRecipiente = obterPesoRecipiente();
-    if (pesoNoRecipiente != -1) {
+    if (pesoNoRecipiente != -1) { // Se a leitura do peso foi válida
         Serial.print("Peso no recipiente: ");
         Serial.print(pesoNoRecipiente);
         Serial.println("g");
@@ -170,28 +166,18 @@ void publicarDadosRacao() {
         client.publish(MQTT_TOPICO_RACAO_RECIPIENTE_PESO, pesoStr); // Do config.h
     }
 
-    // Publicar o total de ração no reservatório (simulado)
-    char totalRacaoStr[10];
-    dtostrf(totalRacaoNoReservatorioSimulado, 6, 2, totalRacaoStr);
-    client.publish(MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_TOTAL, totalRacaoStr); // Do config.h
-    Serial.print("Reservatorio (simulado) total: ");
-    Serial.print(totalRacaoNoReservatorioSimulado);
-    Serial.println("g");
-
-    // Verifica se o total de ração (simulado) está baixo e envia o alerta
-    if (totalRacaoNoReservatorioSimulado <= LIMITE_ALERTA_RESERVATORIO_SIMULADO_G) { // Do config.h
-        client.publish(MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_ALERTA, "Reservatorio SIMULADO de racao baixo! Adicione mais racao."); // Do config.h
-        Serial.println("ALERTA: Reservatorio SIMULADO de racao baixo!");
-    }
+    // REMOVIDO: Publicação do total de ração no reservatório (simulado)
+    // REMOVIDO: Verificação e alerta para o total de ração (simulado) baixo
 
     // Lógica de dispensar ração automaticamente se o recipiente estiver com pouco
     if (pesoNoRecipiente != -1 && pesoNoRecipiente <= PESO_RECIPIENTE_ACIONA_DISPENSA_AUTO_G) { // Do config.h
         Serial.println("Pouca racao detectada no recipiente, acionando dispensa automatica...");
-        dispensarRacao(); // Chama a função centralizada
+        dispensarRacao(); // Chama a função simplificada
     } else if (pesoNoRecipiente != -1) {
         // Serial.println("Nao liberando racao automaticamente (recipiente com quantidade suficiente).");
     }
-    Serial.println("------------------------------------------------------");
+    // A linha abaixo pode ser removida se não houver mais nada a imprimir aqui.
+    // Serial.println("------------------------------------------------------"); 
 }
 
 

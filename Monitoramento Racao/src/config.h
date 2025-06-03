@@ -22,9 +22,9 @@ const char* MQTT_CLIENT_ID_RACAO = "ESP32_Canil_Racao_Client";
 #define MQTT_TOPICO_RACAO_RESERVATORIO_PRINCIPAL_PESO   MQTT_PREFIX_RACAO "racao/reservatorio_principal/peso"
 #define MQTT_TOPICO_RACAO_RESERVATORIO_PRINCIPAL_ALERTA MQTT_PREFIX_RACAO "racao/reservatorio_principal/alerta"
 // Para o total SIMULADO que seu sketch atual publica:
-#define MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_TOTAL   MQTT_PREFIX_RACAO "racao/reservatorio_simulado/total" // ESP32 publica 'totalRacao' aqui
+// #define MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_TOTAL   MQTT_PREFIX_RACAO "racao/reservatorio_simulado/total" // ESP32 publica 'totalRacao' aqui
 // (Seu sketch atual publica em "RACAO_ESP32_REPOSITÓRIO")
-#define MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_ALERTA  MQTT_PREFIX_RACAO "racao/reservatorio_simulado/alerta" // ESP32 publica alerta de 'totalRacao' baixo aqui
+// #define MQTT_TOPICO_RACAO_RESERVATORIO_SIMULADO_ALERTA  MQTT_PREFIX_RACAO "racao/reservatorio_simulado/alerta" // ESP32 publica alerta de 'totalRacao' baixo aqui
 // (Seu sketch atual publica em "ALERTA_RACAO")
 
 
