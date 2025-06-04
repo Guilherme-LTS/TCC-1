@@ -22,7 +22,8 @@ const char* MQTT_CLIENT_ID_RACAO = "ESP32_Canil_Racao_Client";
 
 // Comando para Dispensar Ração (Node-RED -> ESP32)
 #define MQTT_TOPICO_RACAO_DISPENSAR_CMD         MQTT_PREFIX_RACAO "racao/dispensador/comando" // ESP32 ouve comandos aqui
-// (Seu sketch atual ouve "RACAO_ESP32_RECEBE")
+#define MQTT_TOPICO_RACAO_DISPENSADOR_STATUS MQTT_PREFIX_RACAO "racao/dispensador/status"
+
 
 // --- Pinos dos Sensores e Atuadores para Ração (Conforme seu Wokwi da Ração) ---
 
@@ -50,8 +51,7 @@ const char* MQTT_CLIENT_ID_RACAO = "ESP32_Canil_Racao_Client";
 #define PESO_RECIPIENTE_ACIONA_DISPENSA_AUTO_G 100.0f // Se peso <= 100g no recipiente, dispensa auto
 #define QUANTIDADE_RACAO_A_DISPENSAR_G        50.0f  // Quantidade dispensada por vez
 #define LIMITE_MINIMO_RESERVATORIO_PARA_DISPENSAR_G 50.0f // Precisa ter pelo menos isso no reservatório para dispensar
-#define LIMITE_PESO_BAIXO_RESERVATORIO_PRINCIPAL_G 1000.0f 
-
+#define LIMITE_PESO_BAIXO_RESERVATORIO_PRINCIPAL_G 1000.0f
 
 // Parâmetros do dispensador (Servo)
 #define ANGULO_SERVO_FECHADO 90

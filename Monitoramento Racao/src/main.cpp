@@ -166,18 +166,18 @@ void atualizaLedStatusMqttRacao() {
 }
 
 void dispensarRacao() {
+    // Esta função não verifica mais o 'totalRacaoNoReservatorioSimulado'
+    // A decisão de chamar esta função já foi tomada (recipiente baixo ou comando MQTT)
 
     petServo.write(ANGULO_SERVO_ABERTO); // Do config.h
     Serial.println("Dispensador: Servo Aberto.");
-    // Publicar status do dispensador (opcional)
-    // client.publish(MQTT_TOPICO_RACAO_DISPENSADOR_STATUS, "ABERTO");
+    client.publish(MQTT_TOPICO_RACAO_DISPENSADOR_STATUS, "ABERTO"); // <-- NOVA LINHA
 
     delay(TEMPO_SERVO_ABERTO_PARA_DISPENSA_MS); // Do config.h
 
     petServo.write(ANGULO_SERVO_FECHADO); // Do config.h
     Serial.println("Dispensador: Servo Fechado.");
-    // Publicar status do dispensador (opcional)
-    // client.publish(MQTT_TOPICO_RACAO_DISPENSADOR_STATUS, "FECHADO");
+    client.publish(MQTT_TOPICO_RACAO_DISPENSADOR_STATUS, "FECHADO"); // <-- NOVA LINHA
     
     Serial.println("Racao dispensada.");
     Serial.println("------------------------------------------------------");
