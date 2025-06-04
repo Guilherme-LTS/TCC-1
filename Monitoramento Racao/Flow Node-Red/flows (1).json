@@ -1,0 +1,1561 @@
+[
+    {
+        "id": "0624fd8e9036f9ad",
+        "type": "tab",
+        "label": "Fluxo 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "af4b1f47930255fa",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/nivel",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "4d971e8c4339eca5",
+                "ad7fdc1f28ce1286"
+            ]
+        ]
+    },
+    {
+        "id": "4d971e8c4339eca5",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "Nivel Agua",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ad7fdc1f28ce1286",
+        "type": "ui_chart",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "74d35e4993957045",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Graficos de Nivel de Agua",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 730,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8f5a92a2d0f05023",
+        "type": "ui_button",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "74d35e4993957045",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Ligar Agua",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "manual_on",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 370,
+        "y": 540,
+        "wires": [
+            [
+                "10cae73fd60928c5"
+            ]
+        ]
+    },
+    {
+        "id": "10cae73fd60928c5",
+        "type": "mqtt out",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/valvula/comando",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d8afb3f722004367",
+        "x": 750,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3c5434d3944844a7",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/valvula/status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "9e2b3fcf79f2c896"
+            ]
+        ]
+    },
+    {
+        "id": "9e2b3fcf79f2c896",
+        "type": "ui_text",
+        "z": "0624fd8e9036f9ad",
+        "group": "74d35e4993957045",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status da Válvula",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 710,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "36c72a24ee158ada",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/reservatorio/peso",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 350,
+        "y": 800,
+        "wires": [
+            [
+                "f649e741a959a13c",
+                "37bbce36dc804c5a"
+            ]
+        ]
+    },
+    {
+        "id": "f649e741a959a13c",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "Peso da Agua",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "37bbce36dc804c5a",
+        "type": "ui_gauge",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "9c80b50ea7a1a760",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Peso do Repositório de Água",
+        "label": "Litros",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#ff0000",
+            "#ffff00",
+            "#00ff04"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 760,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "9acd3b86966b5d26",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/reservatorio/alerta",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "4fa730d5df44fa46"
+            ]
+        ]
+    },
+    {
+        "id": "4fa730d5df44fa46",
+        "type": "ui_text",
+        "z": "0624fd8e9036f9ad",
+        "group": "9c80b50ea7a1a760",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Alerta",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 710,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "b60a2f99a03895bf",
+        "type": "telegram sender",
+        "z": "0624fd8e9036f9ad",
+        "name": "Enviar mensagem",
+        "bot": "65292ffdd4558029",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1210,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c6921dc67d49daa",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/reservatorio/alerta",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 430,
+        "y": 1200,
+        "wires": [
+            [
+                "05324f473b2b2853"
+            ]
+        ]
+    },
+    {
+        "id": "05324f473b2b2853",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 3",
+        "func": "// msg.payload já contém a mensagem de alerta vinda do ESP32\n// Ex: \"Reservatorio de AGUA com baixo nivel!\"\n\nmsg.payload = {\n    chatId: \"5498553706\", // Mantenha seu Chat ID\n    type: \"message\",\n    content: \"🚨 Alerta Nível de Água: \" + msg.payload // Adiciona um prefixo à mensagem do ESP32\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1200,
+        "wires": [
+            [
+                "6968af462a6bf697"
+            ]
+        ]
+    },
+    {
+        "id": "cc2f00743dadfe2c",
+        "type": "mysql",
+        "z": "0624fd8e9036f9ad",
+        "mydb": "59087fcb3b0b9d25",
+        "name": "Database",
+        "x": 960,
+        "y": 3400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b72bba5ff921ae0b",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/nivel",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 3380,
+        "wires": [
+            [
+                "0fd04cab8bc62080",
+                "f96db3d4b0f8e55c"
+            ]
+        ]
+    },
+    {
+        "id": "2d9ab1577e8781c5",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/agua/reservatorio/peso",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 3540,
+        "wires": [
+            [
+                "0fd04cab8bc62080",
+                "6556b650418bef7f"
+            ]
+        ]
+    },
+    {
+        "id": "0305ba4f2505ff28",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 4",
+        "func": "var valor = parseFloat(msg.payload);\n\nif (isNaN(valor)) {\n    node.error(\"Payload não é um número válido para nivel_agua\", msg);\n    return null; // Não envia a mensagem se não for um número\n}\n\nmsg.topic = \"INSERT INTO historico (nivel_agua) VALUES (?)\";\nmsg.payload = [valor];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 3340,
+        "wires": [
+            [
+                "cc2f00743dadfe2c"
+            ]
+        ]
+    },
+    {
+        "id": "c7c58588ab725906",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 5",
+        "func": "var valor = parseFloat(msg.payload);\n\nif (isNaN(valor)) {\n    node.error(\"Payload não é um número válido para peso_agua_reservatorio\", msg);\n    return null; // Não envia a mensagem se não for um número\n}\n\nmsg.topic = \"INSERT INTO historico (peso_agua_reservatorio) VALUES (?)\";\n\nmsg.payload = [valor];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 3540,
+        "wires": [
+            [
+                "cc2f00743dadfe2c"
+            ]
+        ]
+    },
+    {
+        "id": "0fd04cab8bc62080",
+        "type": "ui_chart",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "aa6e8137c1bc043d",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 3480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "707927c0ef582468",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/recipiente/peso",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 910,
+        "y": 2240,
+        "wires": [
+            [
+                "ae04e01088ccf606",
+                "dc0b67bfaf7e639c"
+            ]
+        ]
+    },
+    {
+        "id": "ae04e01088ccf606",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "dc0b67bfaf7e639c",
+        "type": "ui_gauge",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "5c530eae955dec6b",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Graficos de Nivel da Ração",
+        "label": "Gramas",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "5000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1240,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "efdb63ae379c4142",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "c0105ebc6c8db3c3",
+        "type": "mqtt out",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/dispensador/comando",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d8afb3f722004367",
+        "x": 510,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "0c5dbb9a8c1c4ddd",
+        "type": "ui_button",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "5c530eae955dec6b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "LIBERAR RAÇÃO",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "LIBERAR",
+        "payloadType": "str",
+        "topic": "RACAO_ESP32_RECEBE",
+        "topicType": "msg",
+        "x": 190,
+        "y": 2260,
+        "wires": [
+            [
+                "c0105ebc6c8db3c3",
+                "efdb63ae379c4142"
+            ]
+        ]
+    },
+    {
+        "id": "10789380afabd493",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/ambiente/temperatura",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 490,
+        "y": 1640,
+        "wires": [
+            [
+                "97d0d3d4a9367960",
+                "2d779c021f6d42b2"
+            ]
+        ]
+    },
+    {
+        "id": "97d0d3d4a9367960",
+        "type": "ui_gauge",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "6b851ae628d0e0ae",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Graus do Ambiente",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00ffe1",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 850,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "2d779c021f6d42b2",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "1b0bbfbba6848dcd",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/ambiente/temperatura/alerta",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 1820,
+        "wires": [
+            [
+                "4a15a491f2da9c7d"
+            ]
+        ]
+    },
+    {
+        "id": "4a15a491f2da9c7d",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 6",
+        "func": "msg.payload = {\n    chatId: \"5498553706\", // Substitua pelo seu Chat ID\n    type: \"message\",       // Define o tipo de envio como mensagem de texto\n    content: \"🚨 Alerta! A temperatura está muito alta. O Ar-Condicionado foi ligado!\"\n};\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 1820,
+        "wires": [
+            [
+                "c606c2cde4042ca9"
+            ]
+        ]
+    },
+    {
+        "id": "399b69b9d69d8f82",
+        "type": "telegram sender",
+        "z": "0624fd8e9036f9ad",
+        "name": "Enviar mensagem",
+        "bot": "65292ffdd4558029",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1150,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e2e470f590d835b",
+        "type": "comment",
+        "z": "0624fd8e9036f9ad",
+        "name": "Parte da Ração",
+        "info": "",
+        "x": 680,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "456b9d4e16373ff6",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/reservatorio_principal/alerta",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 440,
+        "y": 2680,
+        "wires": [
+            [
+                "3677c82e348ed010"
+            ]
+        ]
+    },
+    {
+        "id": "3677c82e348ed010",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 7",
+        "func": "var mensagemDoEsp32 = msg.payload; \n\nvar novaMensagem = \"⚠️ ATENÇÃO CANIL! ⚠️ O reservatório principal de ração está baixo. Por favor, verifique e reabasteça o mais rápido possível!\";\n\nmsg.payload = {\n    chatId: \"5498553706\", // Confirme seu Chat ID\n    type: \"message\",\n    content: novaMensagem \n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 2680,
+        "wires": [
+            [
+                "b28d7211abebfc7c"
+            ]
+        ]
+    },
+    {
+        "id": "335ebf2898d809ce",
+        "type": "telegram sender",
+        "z": "0624fd8e9036f9ad",
+        "name": "Enviar mensagem",
+        "bot": "65292ffdd4558029",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1190,
+        "y": 2680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5464eb2ca977a3c5",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/reservatorio_principal/peso",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 3000,
+        "wires": [
+            [
+                "3d0205f8d395f409",
+                "cccf7b8333ca247a"
+            ]
+        ]
+    },
+    {
+        "id": "8f402f396fde48d2",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/recipiente/peso",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 3080,
+        "wires": [
+            [
+                "3d0205f8d395f409",
+                "2694e55be08125c1"
+            ]
+        ]
+    },
+    {
+        "id": "cb3f7eed6b51c55b",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 8",
+        "func": "var valor = parseFloat(msg.payload);\n\nif (isNaN(valor)) {\n    node.error(\"Payload (reservatorio principal racao) nao é um numero: \" + msg.payload, msg);\n    return null; // Não processa se não for um número\n}\n\nmsg.topic = \"INSERT INTO historico (total_racao_repositorio) VALUES (?)\";\nmsg.payload = [valor];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 3000,
+        "wires": [
+            [
+                "dd86bbe8e9d004d9"
+            ]
+        ]
+    },
+    {
+        "id": "dd86bbe8e9d004d9",
+        "type": "mysql",
+        "z": "0624fd8e9036f9ad",
+        "mydb": "59087fcb3b0b9d25",
+        "name": "Data Base Ração",
+        "x": 990,
+        "y": 3040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbd9e726634f71a6",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 9",
+        "func": "var valor = parseFloat(msg.payload);\n\nif (isNaN(valor)) {\n    node.error(\"Payload (recipiente racao) nao é um numero: \" + msg.payload, msg);\n    return null; // Não processa se não for um número\n}\n\n// Insere apenas o peso_racao_recipiente nesta mensagem específica\n// A coluna data_leitura (ou data_hora) deve ter DEFAULT CURRENT_TIMESTAMP no MySQL\nmsg.topic = \"INSERT INTO historico (quantidade_racao_recipient) VALUES (?)\";\nmsg.payload = [valor]; \n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 3080,
+        "wires": [
+            [
+                "dd86bbe8e9d004d9"
+            ]
+        ]
+    },
+    {
+        "id": "3d0205f8d395f409",
+        "type": "ui_chart",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "21050ec017bbfddf",
+        "order": 2,
+        "width": "6",
+        "height": "6",
+        "label": "DataBase Chart Ração",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 790,
+        "y": 3220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d2bdc6448e265653",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/ambiente/temperatura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 3460,
+        "wires": [
+            [
+                "0fd04cab8bc62080",
+                "c7c3d033555c9228"
+            ]
+        ]
+    },
+    {
+        "id": "61746575193b73c4",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "function 10",
+        "func": "var valor = parseFloat(msg.payload);\nif (isNaN(valor)) {\n    node.error(\"Payload não é um número válido para temperatura_ambiente\", msg);\n    return null;\n}\nmsg.topic = \"INSERT INTO historico (temperatura_ambiente) VALUES (?)\";\nmsg.payload = [valor];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 3400,
+        "wires": [
+            [
+                "cc2f00743dadfe2c"
+            ]
+        ]
+    },
+    {
+        "id": "e5b9f580cdf6166b",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/reservatorio_principal/peso",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 780,
+        "y": 2460,
+        "wires": [
+            [
+                "fceabca40039875d",
+                "be3f8ab1529178d6"
+            ]
+        ]
+    },
+    {
+        "id": "fceabca40039875d",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 2460,
+        "wires": []
+    },
+    {
+        "id": "be3f8ab1529178d6",
+        "type": "ui_gauge",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "group": "7d4470af87473997",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Peso do Reservatório Ração",
+        "label": "Kg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50000",
+        "colors": [
+            "#ff0000",
+            "#ffff00",
+            "#00ff04"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1180,
+        "y": 2560,
+        "wires": []
+    },
+    {
+        "id": "b28d7211abebfc7c",
+        "type": "delay",
+        "z": "0624fd8e9036f9ad",
+        "name": "Limitar Alerta Ração a 1/hora",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "60",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 940,
+        "y": 2680,
+        "wires": [
+            [
+                "335ebf2898d809ce"
+            ]
+        ]
+    },
+    {
+        "id": "c606c2cde4042ca9",
+        "type": "delay",
+        "z": "0624fd8e9036f9ad",
+        "name": "Limitar Alerta Ar a 1/5min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 1820,
+        "wires": [
+            [
+                "399b69b9d69d8f82"
+            ]
+        ]
+    },
+    {
+        "id": "6968af462a6bf697",
+        "type": "delay",
+        "z": "0624fd8e9036f9ad",
+        "name": "Limitar Alerta Água a 1/30min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 1200,
+        "wires": [
+            [
+                "b60a2f99a03895bf"
+            ]
+        ]
+    },
+    {
+        "id": "cb30ae16e91a12d1",
+        "type": "mqtt in",
+        "z": "0624fd8e9036f9ad",
+        "name": "",
+        "topic": "canilGuilherme/racao/dispensador/status",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d8afb3f722004367",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 2380,
+        "wires": [
+            [
+                "adbed0b143fe052d"
+            ]
+        ]
+    },
+    {
+        "id": "adbed0b143fe052d",
+        "type": "ui_text",
+        "z": "0624fd8e9036f9ad",
+        "group": "7d4470af87473997",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status do Servo",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 520,
+        "y": 2380,
+        "wires": []
+    },
+    {
+        "id": "cccf7b8333ca247a",
+        "type": "change",
+        "z": "0624fd8e9036f9ad",
+        "name": "racao_res_p",
+        "rules": [
+            {
+                "t": "set",
+                "p": "latest_racao_res_p",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 3000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2694e55be08125c1",
+        "type": "change",
+        "z": "0624fd8e9036f9ad",
+        "name": "racao_recipiente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "latest_racao_recipiente",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 3080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f96db3d4b0f8e55c",
+        "type": "change",
+        "z": "0624fd8e9036f9ad",
+        "name": "agua_nivel",
+        "rules": [
+            {
+                "t": "set",
+                "p": "latest_agua_nivel",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 3360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7c3d033555c9228",
+        "type": "change",
+        "z": "0624fd8e9036f9ad",
+        "name": "temp_amb",
+        "rules": [
+            {
+                "t": "set",
+                "p": "latest_temp_amb",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 3480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6556b650418bef7f",
+        "type": "change",
+        "z": "0624fd8e9036f9ad",
+        "name": "peso_agua_res",
+        "rules": [
+            {
+                "t": "set",
+                "p": "latest_peso_agua_res",
+                "pt": "flow",
+                "to": "$number(payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 3560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e8a874a235d5d0fa",
+        "type": "inject",
+        "z": "0624fd8e9036f9ad",
+        "name": "Gatilho Grava BD a cada 1 min",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 3660,
+        "wires": [
+            [
+                "917307f0954dabfd"
+            ]
+        ]
+    },
+    {
+        "id": "917307f0954dabfd",
+        "type": "function",
+        "z": "0624fd8e9036f9ad",
+        "name": "Prepara INSERT Consolidado",
+        "func": "var nivelAgua = flow.get('latest_agua_nivel') || null;\nvar pesoAguaRes = flow.get('latest_peso_agua_res') || null;\nvar tempAmb = flow.get('latest_temp_amb') || null;\nvar pesoRacaoRec = flow.get('latest_racao_recipiente') || null;\nvar pesoRacaoResP = flow.get('latest_racao_res_p') || null;\n\n\nmsg.topic = \"INSERT INTO historico (nivel_agua, peso_agua_reservatorio, total_racao_repositorio, quantidade_racao_recipient, temperatura_ambiente) VALUES (?, ?, ?, ?, ?)\";\n\n// Cria o array de valores na ORDEM CORRETA dos '?' na query SQL\nmsg.payload = [\n    nivelAgua,\n    pesoAguaRes,\n    tempAmb,\n    pesoRacaoRec,\n    pesoRacaoResP \n];\n\n// Opcional: Log para depuração para ver quais valores estão sendo enviados\n// node.warn(\"Valores para BD: \" + JSON.stringify(msg.payload));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 3660,
+        "wires": [
+            [
+                "82538725fe427b32",
+                "e505364db5598b7d"
+            ]
+        ]
+    },
+    {
+        "id": "0735379d8fabec30",
+        "type": "comment",
+        "z": "0624fd8e9036f9ad",
+        "name": "DATABASE",
+        "info": "",
+        "x": 690,
+        "y": 2800,
+        "wires": []
+    },
+    {
+        "id": "82538725fe427b32",
+        "type": "mysql",
+        "z": "0624fd8e9036f9ad",
+        "mydb": "59087fcb3b0b9d25",
+        "name": "Data Base Ração",
+        "x": 950,
+        "y": 3660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e505364db5598b7d",
+        "type": "debug",
+        "z": "0624fd8e9036f9ad",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 3740,
+        "wires": []
+    },
+    {
+        "id": "f6247184a8a8d8ba",
+        "type": "ui_spacer",
+        "z": "0624fd8e9036f9ad",
+        "name": "spacer",
+        "group": "9c80b50ea7a1a760",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "d8afb3f722004367",
+        "type": "mqtt-broker",
+        "name": "Wokwi Testing",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "74d35e4993957045",
+        "type": "ui_group",
+        "name": "Nivel de Agua",
+        "tab": "22fe7ad69ecc233e",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9c80b50ea7a1a760",
+        "type": "ui_group",
+        "name": "Nível Repositório de Agua",
+        "tab": "22fe7ad69ecc233e",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "65292ffdd4558029",
+        "type": "telegram bot",
+        "botname": "Enviador de Mensagens",
+        "usernames": "",
+        "chatids": "5498553706",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "addressfamily": "",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "59087fcb3b0b9d25",
+        "type": "MySQLdatabase",
+        "name": "Database",
+        "host": "localhost",
+        "port": "3306",
+        "db": "projeto_canil",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "aa6e8137c1bc043d",
+        "type": "ui_group",
+        "name": "DataBase",
+        "tab": "22fe7ad69ecc233e",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5c530eae955dec6b",
+        "type": "ui_group",
+        "name": "Nivel da Ração Novo",
+        "tab": "0dbf227786ebbcb1",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "6b851ae628d0e0ae",
+        "type": "ui_group",
+        "name": "Graus do Ambiente",
+        "tab": "6ef7d9e5663b4d2e",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "21050ec017bbfddf",
+        "type": "ui_group",
+        "name": "Data Base Chart Ração",
+        "tab": "0dbf227786ebbcb1",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7d4470af87473997",
+        "type": "ui_group",
+        "name": "Monitoramento Ração Reservatório",
+        "tab": "0dbf227786ebbcb1",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "22fe7ad69ecc233e",
+        "type": "ui_tab",
+        "name": "Monitoramento Água",
+        "icon": "bubble_chart",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0dbf227786ebbcb1",
+        "type": "ui_tab",
+        "name": "Monitoramento Ração",
+        "icon": "local_dining",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "6ef7d9e5663b4d2e",
+        "type": "ui_tab",
+        "name": "Temperatura Ambiente",
+        "icon": "wb_sunny",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]
