@@ -52,7 +52,7 @@ const char* MQTT_CLIENT_ID_RACAO = "ESP32_Canil_Racao_Client";
 
 
 // --- Parâmetros de Sensores e Lógica para Ração ---
-#define HX711_RECIPIENTE_CALIBRATION_FACTOR   420.0f // Do seu sketch (era 'CALIBRACAO')
+#define HX711_RECIPIENTE_CALIBRATION_FACTOR   0.42f // Do seu sketch (era 'CALIBRACAO')
 
 // Limites e quantidades (do seu sketch)
 #define PESO_RECIPIENTE_ACIONA_DISPENSA_AUTO_G 100.0f // Se peso <= 100g no recipiente, dispensa auto

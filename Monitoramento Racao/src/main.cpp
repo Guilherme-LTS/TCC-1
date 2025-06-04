@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "config.h" // Nosso arquivo de configuração para o sistema de ração
+#include "config.h" 
 
 // Bibliotecas necessárias (conforme platformio.ini e seu sketch original)
 #include <WiFi.h>
@@ -92,28 +92,12 @@ void reconnect_mqtt_racao() {
 
 float obterPesoRecipiente() {
     if (balancaRecipiente.is_ready()) {
-        long leitura = balancaRecipiente.get_units(10); // Média de 10 leituras
-        // A conversão para gramas já estava no seu sketch, mantida aqui.
-        // Se fatorCalibracaoRecipiente for para kg, então *1000 para gramas.
-        // Seu sketch original fazia: (leitura / fator) * 100. Assumindo que o fator é para 10g por unidade.
-        // Ajuste a fórmula conforme a unidade esperada pelo seu fator de calibração.
-        // Exemplo: se fatorCalibracaoRecipiente dá o peso em gramas diretamente:
-        // float pesoEmGramas = leitura / fatorCalibracaoRecipiente;
-        // Exemplo: se fatorCalibracaoRecipiente dá o peso em kg:
-        // float pesoEmGramas = (leitura / fatorCalibracaoRecipiente) * 1000.0;
-
-        // Baseado no seu sketch: `pesoEmKg = leitura / fatorCalibracao; return pesoEmKg * 100;`
-        // Isso é um pouco confuso. Se `fatorCalibracao` é para KG, então `pesoEmKg` está em KG.
-        // Multiplicar por 100 daria Hectogramas.
-        // Vamos assumir que `fatorCalibracaoRecipiente` é ajustado para que a saída direta seja em gramas.
-        // Se `fatorCalibracaoRecipiente` foi calibrado para dar leitura em KG:
-        // return (balancaRecipiente.get_units(10) / fatorCalibracaoRecipiente) * 1000.0; // Converte para gramas
-        // Se `fatorCalibracaoRecipiente` foi calibrado para dar leitura em GRAMAS:
-        return balancaRecipiente.get_units(10) / fatorCalibracaoRecipiente;
-
+        // get_units() retorna o valor na unidade para a qual a escala foi calibrada.
+        // Se fatorCalibracaoRecipiente foi ajustado para gramas, isto retornará gramas.
+        return balancaRecipiente.get_units(10); 
     } else {
         Serial.println("Sensor de peso do recipiente (HX711) nao esta pronto!");
-        return -1; // Indica erro
+        return -1; // Indica erro (ou 0.0 se preferir não usar -1)
     }
 }
 
@@ -183,25 +167,32 @@ void publicarDadosRacao() {
 
 // --- Função setup() ---
 void setup() {
-    pinMode(PIN_LED_STATUS_WIFI_RACAO, OUTPUT);   // Do config.h
-    pinMode(PIN_LED_STATUS_MQTT_RACAO, OUTPUT);   // Do config.h
-    
+    pinMode(PIN_LED_STATUS_WIFI_RACAO, OUTPUT);
+    pinMode(PIN_LED_STATUS_MQTT_RACAO, OUTPUT);
+
     Serial.begin(115200);
     setup_wifi_racao();
-    
-    client.setServer(MQTT_SERVER_RACAO, MQTT_PORT_RACAO); // Do config.h
+
+    client.setServer(MQTT_SERVER_RACAO, MQTT_PORT_RACAO);
     client.setCallback(callback_racao);
 
-    petServo.attach(PIN_SERVO_DISPENSADOR); // Do config.h
-    petServo.write(ANGULO_SERVO_FECHADO);   // Do config.h - Servo fechado inicialmente
+    petServo.attach(PIN_SERVO_DISPENSADOR);
+    petServo.write(ANGULO_SERVO_FECHADO);
 
-    balancaRecipiente.begin(PIN_HX711_RECIPIENTE_DT, PIN_HX711_RECIPIENTE_SCK); // Do config.h
-    balancaRecipiente.set_scale(fatorCalibracaoRecipiente); // Usa o fator de calibração
-    balancaRecipiente.tare(); // Zera a balança do recipiente
+    balancaRecipiente.begin(PIN_HX711_RECIPIENTE_DT, PIN_HX711_RECIPIENTE_SCK);
+
+    Serial.println("Aguardando estabilizacao do sensor de peso...");
+    delay(1000); 
+
+    // Definir a escala PRIMEIRO com o fator calibrado
+    balancaRecipiente.set_scale(fatorCalibracaoRecipiente); 
+    // DEPOIS fazer o tare para zerar com a escala já aplicada
+    balancaRecipiente.tare(); 
+
+    Serial.print("Offset apos tare: "); Serial.println(balancaRecipiente.get_offset());
+    Serial.print("Escala definida com (config.h): "); Serial.println(fatorCalibracaoRecipiente); // Deve mostrar 0.42
 
     Serial.println("Sistema de Racao Iniciado e Funcionando.");
-    Serial.print("Fator de Calibracao Inicial (Recipiente): ");
-    Serial.println(fatorCalibracaoRecipiente);
 }
 
 // --- Função loop() ---
