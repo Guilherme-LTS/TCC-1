@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "author": "SATYAM",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 19.2, "left": -177.56, "attrs": {} },
+    { "type": "wokwi-hx711", "id": "cell1", "top": 69.8, "left": 89, "attrs": { "type": "5kg" } },
+    { "type": "wokwi-servo", "id": "servo1", "top": 209.2, "left": 86.4, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -70.8,
+      "left": -73,
+      "attrs": { "color": "blue", "flip": "" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -61.2,
+      "left": 13.4,
+      "attrs": { "color": "purple", "flip": "" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -6.2,
+      "left": -77.65,
+      "rotate": 270,
+      "attrs": { "value": "150" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 61.55,
+      "left": -38.4,
+      "attrs": { "value": "150" }
+    },
+    {
+      "type": "wokwi-hx711",
+      "id": "cell2",
+      "top": 50.6,
+      "left": -506.2,
+      "attrs": { "type": "50kg" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "cell1:GND", "esp:GND.1", "black", [ "h-28.8", "v201.3", "h-297.6", "v-124.8" ] ],
+    [ "servo1:GND", "esp:GND.1", "black", [ "h-307.2", "v-86.4" ] ],
+    [ "servo1:V+", "esp:5V", "red", [ "h-259.2", "v-9.5" ] ],
+    [ "servo1:PWM", "esp:26", "blue", [ "h-288", "v-143.8" ] ],
+    [ "cell1:DT", "esp:2", "cyan", [ "h-67.2", "v76.3" ] ],
+    [ "cell1:SCK", "esp:4", "purple", [ "h-76.8", "v47.2" ] ],
+    [ "cell1:VCC", "esp:5V", "red", [ "h-124.8", "v115.2", "h-144" ] ],
+    [ "r1:2", "led1:A", "blue", [ "v0", "h8.4" ] ],
+    [ "led2:A", "r2:2", "orange", [ "v0" ] ],
+    [ "led2:C", "esp:GND.2", "black", [ "v67.2", "h-105.2" ] ],
+    [ "esp:15", "r2:1", "orange", [ "v0", "h9.6" ] ],
+    [ "r1:1", "esp:0", "blue", [ "v0" ] ],
+    [ "led1:C", "esp:GND.2", "black", [ "h-18.8", "v124.8" ] ],
+    [ "cell2:DT", "esp:16", "green", [ "h-38.4", "v105.1" ] ],
+    [ "cell2:SCK", "esp:17", "green", [ "h-28.8", "v47.2" ] ],
+    [ "cell2:VCC", "esp:5V", "red", [ "h-19.2", "v124.8" ] ],
+    [ "cell2:GND", "esp:GND.1", "black", [ "h-48", "v-0.3" ] ]
+  ],
+  "dependencies": {}
+}
