@@ -22,6 +22,9 @@ bool autoDisabled = false; // Relacionado ao controle manual da válvula
 // unsigned long startTime = 0; // Usada em Publica_dados, que tem um delay(1000)
 bool alertaReservatorioEnviado = false; // Para controlar o envio único do alerta de peso
 
+bool arManualOverride = false; // true se o Ar foi ligado/desligado manualmente
+
+
 
 // --- Funções Auxiliares ---
 
@@ -30,6 +33,14 @@ void atualizaEstadoValvula(bool estado) {
         client.publish(MQTT_TOPICO_STATUS_VALVULA_STAT, "ON");
     } else {
         client.publish(MQTT_TOPICO_STATUS_VALVULA_STAT, "OFF");
+    }
+}
+
+void atualizaEstadoAr(bool estado) {
+    if (estado) {
+        client.publish(MQTT_TOPICO_STATUS_AR_STAT, "ON");
+    } else {
+        client.publish(MQTT_TOPICO_STATUS_AR_STAT, "OFF");
     }
 }
 
@@ -58,6 +69,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         command += (char)payload[i];
     }
+
+    command.trim();
+
     Serial.print("Mensagem recebida no topico: ");
     Serial.println(topic);
     Serial.print("Comando: ");
@@ -71,12 +85,25 @@ void callback(char* topic, byte* payload, unsigned int length) {
             digitalWrite(PIN_LED_VALVULA, HIGH); // De config.h
             atualizaEstadoValvula(true);
             Serial.println("Valvula acionada manualmente!");
-        } else if (command == "manual_off") {
-            manualMode = false;
-            // autoDisabled não é resetado aqui, mas em verificaTempoManual()
-            digitalWrite(PIN_LED_VALVULA, LOW); // De config.h
-            atualizaEstadoValvula(false);
-            Serial.println("Valvula desligada manualmente!");
+        }
+    } else if (String(topic) == MQTT_TOPICO_CONTROLE_AR_CMD) {
+        arManualOverride = true; // Ativa a trava manual
+
+        // --- CORREÇÃO AQUI: Usando o método .equals() ---
+        if (command.equals("ON")) {
+            Serial.println("Comando manual: LIGAR AR");
+            digitalWrite(PIN_LED_ARCONDICIONADO, HIGH);
+            atualizaEstadoAr(true);
+        } else if (command.equals("OFF")) {
+            Serial.println("Comando manual: DESLIGAR AR");
+            digitalWrite(PIN_LED_ARCONDICIONADO, LOW);
+            atualizaEstadoAr(false);
+        } else if (command.equals("AUTO")) {
+            Serial.println("Comando manual: AR em modo AUTOMATICO");
+            arManualOverride = false; // Desativa a trava
+        } else {
+            Serial.print("Comando desconhecido para o AR: ");
+            Serial.println(command);
         }
     }
 }
@@ -89,6 +116,8 @@ void reconnect() {
             // Inscrever-se nos tópicos necessários
             client.subscribe(MQTT_TOPICO_CONTROLE_AGUA_CMD); // De config.h
             // client.subscribe(MQTT_TOPICO_GENERICO_RECEBE); // Se for usar este tópico também
+            client.subscribe(MQTT_TOPICO_CONTROLE_AR_CMD); // Novo tópico para controle do Ar Condicionado
+
         } else {
             Serial.print("falhou, rc=");
             Serial.print(client.state());
@@ -235,23 +264,38 @@ float lerTemperaturaDHT() { // Renomeada de lerTemperatura
 void publicaTemperaturaEControlaAr() { // Renomeada e lógica unificada
     static unsigned long lastPublishTemp = 0;
 
+    if (arManualOverride) {
+        // Publicar temperatura (continua importante)
+        if (millis() - lastPublishTemp > INTERVALO_PUBLICACAO_TEMPERATURA_MS) { 
+            lastPublishTemp = millis();
+            float temperatura = lerTemperaturaDHT();
+            if (temperatura != -999) {
+                client.publish(MQTT_TOPICO_TEMPERATURA, String(temperatura).c_str());
+                Serial.print("Temperatura (Modo Manual Ar): "); Serial.println(temperatura);
+            }
+        }
+        return; // Pula toda a lógica automática abaixo
+    }
+
     if (millis() - lastPublishTemp > INTERVALO_PUBLICACAO_TEMPERATURA_MS) { // De config.h
         lastPublishTemp = millis();
         float temperatura = lerTemperaturaDHT();
 
         if (temperatura != -999) { // Se a leitura foi bem sucedida
             client.publish(MQTT_TOPICO_TEMPERATURA, String(temperatura).c_str()); // De config.h
-            Serial.print("Temperatura: "); Serial.println(temperatura);
+            Serial.print("Temperatura (Modo Auto Ar): "); Serial.println(temperatura);
 
             if (temperatura > LIMITE_TEMPERATURA_ALTA_C) { // De config.h
                 if(digitalRead(PIN_LED_ARCONDICIONADO) == LOW) { // Ligar apenas se estiver desligado
                     digitalWrite(PIN_LED_ARCONDICIONADO, HIGH); // De config.h (simula ligar ar)
+                    atualizaEstadoAr(true);
                     client.publish(MQTT_TOPICO_ALERTA_TEMP, "Temperatura ALTA! Verificar ar condicionado."); // De config.h
                     Serial.println("ALERTA: Temperatura ALTA! LED Arcondicionado LIGADO.");
                 }
             } else {
                 if(digitalRead(PIN_LED_ARCONDICIONADO) == HIGH) { // Desligar apenas se estiver ligado
                     digitalWrite(PIN_LED_ARCONDICIONADO, LOW); // De config.h (simula desligar ar)
+                    atualizaEstadoAr(false);
                     // Opcional: Enviar mensagem de "normalizado"
                     // client.publish(MQTT_TOPICO_ALERTA_TEMP, "Temperatura normalizada.");
                     Serial.println("Temperatura OK. LED Arcondicionado DESLIGADO.");

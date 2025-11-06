@@ -28,6 +28,11 @@ const char* MQTT_CLIENT_ID = "ESP32_Canil_Client"; // ID único para o cliente M
 // Tópico "TOPICO_WOKWI" que estava no seu código (associado ao analogRead(34))
 #define MQTT_TOPICO_POTENCIOMETRO_WOKWI   MQTT_PREFIX "debug/potenciometro" 
 
+// Novo tópico para controle manual do Ar Condicionado
+#define MQTT_TOPICO_CONTROLE_AR_CMD     MQTT_PREFIX "ambiente/ar/comando"
+
+#define MQTT_TOPICO_STATUS_AR_STAT      MQTT_PREFIX "ambiente/ar/status"
+
 
 // --- Pinos dos Sensores e Atuadores ---
 #define PIN_LED_VALVULA 14         // LED Azul no seu Wokwi (simula válvula)
