@@ -1,0 +1,115 @@
+\usepackage[utf8]{inputenc}
+\usepackage[OT1]{fontenc}
+\usepackage{ae}
+\usepackage[brazil]{babel}
+\usepackage{a4wide}
+\usepackage{comment}
+\usepackage[pdftex]{graphicx,color}
+\usepackage{graphics}
+\usepackage{cite}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{lscape}
+\usepackage{textcase}
+\usepackage{anysize}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{subfig}
+\usepackage{xcolor}
+
+\usepackage{listings}
+
+% Configura o estilo do 'listings' para este documento
+\lstset{
+    language=Python,                % Define a linguagem (Python)
+    basicstyle=\ttfamily\small,     % Define a fonte e o tamanho
+    breaklines=true,                % Quebra linhas longas
+    showstringspaces=false,         % Não mostra espaços em strings
+    captionpos=b,                   % Posição da legenda (bottom)
+    frame=tb,                        % Adiciona um quadro simples (top/bottom)
+    inputencoding=utf8,
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {â}{{\^a}}1
+             {é}{{\'e}}1 {ê}{{\^e}}1
+             {í}{{\'i}}1
+             {ó}{{\'o}}1 {õ}{{\~o}}1 {ô}{{\^o}}1
+             {ú}{{\'u}}1
+             {ç}{{\c{c}}}1
+             {Á}{{\'A}}1 {Ã}{{\~A}}1 {Â}{{\^A}}1
+             {É}{{\'E}}1 {Ê}{{\^E}}1
+             {Í}{{\'I}}1
+             {Ó}{{\'O}}1 {Õ}{{\~O}}1 {Ô}{{\^O}}1
+             {Ú}{{\'U}}1
+             {Ç}{{\c{C}}}1,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{blue},
+}
+
+\usepackage[alf]{abntex2cite}
+
+\marginsize{20mm}{20mm}{20mm}{15mm}
+
+
+%% Cabeçalhos
+\renewcommand{\topfraction}{1}
+\renewcommand{\bottomfraction}{1}
+\renewcommand{\floatpagefraction}{1}
+\renewcommand{\textfraction}{0}
+%\renewcommand{\baselinestretch}{2}
+\doublespacing %espaçamento duplo
+\sloppy
+
+%% Nomes
+\floatstyle{plain}  %%% tipos: plain, boxed, ruled
+\newfloat{codigo}{tbp}{lop}[section]
+\floatname{codigo}{Código}
+
+%%% nome para ser usado no sumário
+
+\newcommand{\listofcodename}{Lista de C\'{o}digos}
+
+
+
+% RESUMO ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\newcommand{\resumo}[1]{
+\begin{center} \LARGE \bf Resumo \end{center}
+
+\vskip 4em
+\input{#1}
+
+\newpage
+
+}
+
+% ABSTRACT ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\newcommand{\abstractt}[1]{
+\begin{center} \LARGE \bf Abstract \end{center}
+
+\vskip 4em
+\input{#1}
+
+\newpage
+
+}
+
+% Sumário -----------
+\newcommand{\sumario}{
+\renewcommand{\contentsname}{Sum\'{a}rio}
+\tableofcontents
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+\newpage
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+\addcontentsline{toc}{chapter}{\listofcodename}
+\listof{codigo}{\listofcodename}  % Lista de Códigos
+
+\clearpage
+}

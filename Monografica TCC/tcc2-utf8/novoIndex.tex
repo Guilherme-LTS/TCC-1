@@ -1,0 +1,98 @@
+% Template para Proposta e TCC da EST/UEA -
+% Padrão para os cursos do Núcleo de Computação
+%
+% Elaborado por Elloá B. Guedes
+% Adaptado da versão elaborada por:				%                   Jucimar Maia Jr.
+%
+% Versão beta - 08 de outubro de 2015
+%
+\documentclass[a4paper,titlepage,12pt]{report}
+
+% === Pacotes de codificação e fonte ===
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+
+% === Ajuste para o fancyhdr (aviso de headheight) ===
+\setlength{\headheight}{13pt}
+
+
+
+\input{config}
+\pagestyle{plain}
+\input{./source/folhaRosto}
+
+
+
+%% Preencha aqui os seguintes dados
+\def \titulo{Sistema Inteligente de Monitoramento e Automação para Ambientes de Animais Domésticos com IoT}
+\def \orientador{Prof. Dr. Edgard Luciano Oliveira da Silva}
+\def \nome{Guilherme Lucas Teixeira Silva}
+\def \mes{novembro}
+\def \ano{2025}
+
+
+\begin{document}
+
+\folhaRosto{\titulo}{\nome}{\orientador}{\mes}{\ano}
+
+% Edite os seguintes arquivos para alterar as informações necessárias
+\input{./source/fichaCatalografica}
+\input{./source/folhaAprovacao}
+
+
+% Indique onde esta o arquivo do resumo
+\resumo{./files/resumo.tex}
+% Idem para o abstract
+\abstractt{./files/abstract.tex}
+
+
+\sumario
+
+% Configuração de cabeçalhos
+\input{./source/inicioCapitulos}
+
+
+% Seus capítulos vão aqui --------
+\input{./files/exemplo.tex}
+\input{./files/CAP4.tex}
+
+
+
+% Referência segundo o padrão ABNT
+% Edite este arquivo e inclua suas referências segundo a notação do Bibtex
+\bibliography{ref}
+
+
+
+
+% --- INÍCIO DO APÊNDICE ---
+% (Cole este bloco de código aqui)
+
+% O comando \appendix muda a numeração dos capítulos para letras (A, B, C)
+\appendix
+
+% \chapter* cria um capítulo sem número (ex: "Apêndice A")
+\chapter*{Apêndice A — Repositório do Código-Fonte}
+
+% Este comando adiciona manualmente o Apêndice ao seu Sumário
+\addcontentsline{toc}{chapter}{Apêndice A — Repositório do Código-Fonte}
+
+O código-fonte completo deste projeto, incluindo a pipeline de validação de Machine Learning (scripts \texttt{config.py}, \texttt{gerar\_dados.py} e \texttt{detectar\_anomalia.py}), o firmware principal do microcontrolador ESP32 e os fluxos de orquestração do Node-RED, está disponível para auditoria da banca no seguinte repositório:
+
+% Adiciona um espaço
+\vspace{0.5cm}
+
+% Use \url{...} para formatar o link corretamente
+% SUBSTITUA O TEXTO ABAIXO PELO SEU LINK REAL
+\begin{center}
+    \url{https://github.com/Guilherme-LTS/TCC-1}
+\end{center}
+
+% --- FIM DO APÊNDICE ---
+
+
+
+
+
+\end{document}
