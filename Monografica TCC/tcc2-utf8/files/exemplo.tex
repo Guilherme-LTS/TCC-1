@@ -23,7 +23,7 @@ Nesse contexto, a tecnologia, em particular a Internet das Coisas (IoT), surge c
 O mercado global de cuidados tecnológicos para animais de estimação (pets) reflete essa tendência, com o segmento de alimentadores inteligentes estimado em USD 1,46 bilhão em 2024 e com projeção de crescimento para USD 2,35 bilhões até 2030 \cite{grandview2024}.
 Essa demanda é impulsionada pela busca por conveniência e pela crescente conscientização sobre o bem-estar animal.
 Contudo, apesar da proliferação de dispositivos, o mercado ainda é dominado por soluções que operam de forma isolada, tratando o cuidado animal de maneira fragmentada.
-O conceito de "bem-estar animal" pode ser tecnicamente aprofundado pela literatura da Pecuária de Precisão (\textit{Precision Livestock Farming} - PLF), que utiliza sensores para monitorar o microclima (temperatura, umidade, gases) e seu impacto direto na saúde e produtividade dos animais \cite{tavares2021, neethirajan2017}.
+O conceito de ``bem-estar animal'' pode ser tecnicamente aprofundado pela literatura da Pecuária de Precisão (\textit{Precision Livestock Farming} - PLF), que utiliza sensores para monitorar o microclima (temperatura, umidade, gases) e seu impacto direto na saúde e produtividade dos animais \cite{tavares2021, neethirajan2017}.
 Isso demonstra que o monitoramento ambiental não é apenas uma funcionalidade adicional, mas um pilar para a saúde animal \cite{mdpiAnimals2024}.
 Este trabalho, originado a partir de um projeto desenvolvido na disciplina de Sistemas Integrados de Hardware e Software I, propõe-se a documentar e validar um sistema inteligente de monitoramento e automação para ambientes de animais domésticos, com um foco crítico na arquitetura e na seleção de componentes.
 \section{Justificativa}
@@ -39,7 +39,7 @@ Este trabalho, originado a partir de um projeto desenvolvido na disciplina de Si
 A justificativa para este projeto reside em uma lacuna crítica não endereçada pela maioria das soluções comerciais de cuidado animal: a fragmentação funcional.
 Uma análise do mercado (como em \cite{jacomini2024, circat_paper}) revela um arquipélago de dispositivos proprietários e isolados: alimentadores que não se comunicam com bebedouros, e sistemas de monitoramento ambiental que não influenciam a lógica de automação.
 Essa abordagem em silos impede uma visão holística e proativa do bem-estar do animal, tratando sintomas (ex: um pote de ração vazio) em vez de gerenciar um \textbf{ecossistema de cuidado conjugado}.
-Adicionalmente, as soluções comerciais existentes são frequentemente "caixas-pretas" de custo elevado, que limitam a personalização e a integração.
+Adicionalmente, as soluções comerciais existentes são frequentemente ``caixas-pretas'' de custo elevado, que limitam a personalização e a integração.
 Este projeto justifica-se, portanto, pelo uso de uma \textbf{abordagem de baixo custo} como um facilitador estratégico.
 A utilização de tecnologias abertas como o microcontrolador ESP32, o protocolo Message Queuing Telemetry Transport (MQTT) e a plataforma de fluxo Node-RED não apenas viabiliza uma solução financeiramente acessível, mas, fundamentalmente, fornece a \textbf{flexibilidade arquitetural} necessária para criar uma plataforma de orquestração centralizada e unificada.
 Em resposta direta a essa lacuna, este projeto propõe a concepção e validação de um sistema que atua como essa plataforma de orquestração.
@@ -109,7 +109,7 @@ Sistemas embarcados são sistemas computacionais dedicados a funções específi
 O coração desses sistemas é, frequentemente, um microcontrolador. Para este projeto, foi escolhido o \textbf{ESP32}, um microcontrolador de baixo custo da Espressif Systems.
 A escolha se justifica por suas características robustas, que incluem um processador dual-core, conectividade Wi-Fi e Bluetooth integradas, e um vasto conjunto de periféricos de entrada/saída (como General Purpose Input/Output (GPIOs), ADC, Pulse Width Modulation (PWM)), tornando-o ideal para aplicações de IoT que exigem processamento, conectividade e controle de múltiplos sensores e atuadores \cite{jacomini2024}.
 % --- ORIENTADOR: INÍCIO DA EDIÇÃO (FEEDBACK DA BANCA) ---
-% Trocando "Análise Crítica" por "Levantamento", como solicitado.
+% Trocando ``Análise Crítica'' por ``Levantamento'', como solicitado.
 \section{Levantamento de Componentes: Sensores e Atuadores}
 A confiabilidade de um sistema de cuidado animal depende diretamente da precisão e robustez de seus componentes.
 A seguir, é apresentado um \textbf{levantamento} das escolhas de hardware.
@@ -200,7 +200,7 @@ O \textbf{Message Queuing Telemetry Transport (MQTT)} é um protocolo de mensage
 Sua arquitetura desacopla os dispositivos, tornando o sistema modular e escalável.
 Para aplicações críticas, é essencial compreender os níveis de \textbf{Qualidade de Serviço (QoS)} \cite{mqtt_qos_bevywise}:
 \begin{itemize}
-    \item \textbf{QoS 0 (At most once):} "Dispare e esqueça".
+    \item \textbf{QoS 0 (At most once):} ``Dispare e esqueça''.
 Entrega rápida, mas sem garantia. Adequado para dados não críticos, como leituras de temperatura periódicas, onde a perda ocasional de um pacote é aceitável \cite{mqtt_qos_cedalo}.
 \item \textbf{QoS 1 (At least once):} Garante que a mensagem seja entregue pelo menos uma vez, com confirmação.
 Pode haver duplicatas. É o padrão de fato para comandos em plataformas de nuvem gerenciadas.
@@ -208,9 +208,9 @@ Pode haver duplicatas. É o padrão de fato para comandos em plataformas de nuve
 É o nível *teórico* mais confiável, porém mais lento \cite{mqtt_qos_bevywise, mqtt_qos_thingsboard}.
 \end{itemize}
 
-É crucial notar que, embora o QoS 2 seja o ideal teórico para comandos críticos (como "alimentar o pet"), as principais plataformas de nuvem, incluindo o \textbf{AWS IoT Core}, não implementam o QoS 2, limitando o suporte ao QoS 0 e QoS 1.
-Conforme a própria documentação da AWS, "AWS IoT doesn't support publishing or subscribing with QoS level 2" \cite{aws_iot_core_docs}.
-Esta é uma decisão de engenharia da plataforma: a complexidade e a latência do QoS 2 são trocadas pela simplicidade e velocidade do QoS 1. A responsabilidade de garantir a entrega "exatamente uma vez" (prevenção de duplicatas) é, portanto, movida da camada de protocolo (MQTT) para a \textbf{camada de aplicação} (a lógica do \textit{software}, como a implementação de idempotência no \textit{handler} do AWS Lambda) \cite{aws_lambda_docs, aws_alexa_iot}.
+É crucial notar que, embora o QoS 2 seja o ideal teórico para comandos críticos (como ``alimentar o pet''), as principais plataformas de nuvem, incluindo o \textbf{AWS IoT Core}, não implementam o QoS 2, limitando o suporte ao QoS 0 e QoS 1.
+Conforme a própria documentação da AWS, ``AWS IoT doesn't support publishing or subscribing with QoS level 2'' \cite{aws_iot_core_docs}.
+Esta é uma decisão de engenharia da plataforma: a complexidade e a latência do QoS 2 são trocadas pela simplicidade e velocidade do QoS 1. A responsabilidade de garantir a entrega ``exatamente uma vez'' (prevenção de duplicatas) é, portanto, movida da camada de protocolo (MQTT) para a \textbf{camada de aplicação} (a lógica do \textit{software}, como a implementação de idempotência no \textit{handler} do AWS Lambda) \cite{aws_lambda_docs, aws_alexa_iot}.
 Adicionalmente, a segurança do MQTT não é nativa; ele depende de camadas de transporte seguras como o TLS para criptografar os dados em trânsito \cite{mqtt_security_review, mqtt_aws}.
 \begin{table}[H]
 \centering
@@ -230,7 +230,7 @@ Comando do Atuador (Liberar Água) & \texttt{canil/agua/valvula/comando} & Médi
 Uma execução duplicada não é catastrófica, tornando o QoS 1 um bom equilíbrio entre confiabilidade e complexidade \cite{mqtt_qos_bevywise}.
 \\ \hline
 Comando do Atuador (Dispensar Ração) & \texttt{canil/racao/servo/comando} & Alta & \textbf{QoS 1} \textit{(Forçado pela Nuvem)} & Embora o QoS 2 seja o ideal teórico para evitar duplicatas \cite{mqtt_qos_bevywise}, a plataforma de nuvem escolhida (AWS IoT Core) não o suporta.
-A garantia de "pelo menos uma vez" (QoS 1) é aceita, e a lógica de prevenção de duplicatas (idempotência) é movida para a camada de aplicação (AWS Lambda) \cite{aws_lambda_docs, aws_alexa_iot}.
+A garantia de ``pelo menos uma vez'' (QoS 1) é aceita, e a lógica de prevenção de duplicatas (idempotência) é movida para a camada de aplicação (AWS Lambda) \cite{aws_lambda_docs, aws_alexa_iot}.
 \\ \hline
 \end{tabular}%
 }
@@ -299,11 +299,11 @@ Este trabalho utiliza os serviços da \textbf{Amazon Web Services (AWS)} para co
     \item \textbf{AWS IoT Core:} É um serviço gerenciado que atua como o broker MQTT profissional do sistema.
 Diferente de brokers públicos, ele impõe segurança rigorosa através de autenticação mútua (TLS), onde cada dispositivo (como o Node-RED) deve apresentar certificados de segurança válidos (ex: \texttt{.pem.key}, \texttt{.pem.crt}) para se conectar.
 Além disso, ele utiliza \textbf{Políticas de IoT} (semelhantes às políticas do IAM) para autorizar finamente quais ações (como \texttt{iot:Connect}, \texttt{iot:Publish}) são permitidas para quais tópicos \cite{aws_iot_core_docs}.
-\item \textbf{AWS Lambda:} É o "cérebro" \textit{serverless} da arquitetura. O Lambda permite a execução de código (ex: Python, Node.js) em resposta a eventos, sem a necessidade de provisionar ou gerenciar servidores.
+\item \textbf{AWS Lambda:} É o ``cérebro'' \textit{serverless} da arquitetura. O Lambda permite a execução de código (ex: Python, Node.js) em resposta a eventos, sem a necessidade de provisionar ou gerenciar servidores.
 No contexto deste projeto, ele atua como o \textit{middleware} tradutor entre η API da Alexa e o protocolo MQTT.
 A Alexa gera um evento (a *Intent* de voz), que aciona η função Lambda;
 a função, por sua vez, executa a lógica de negócios e publica o comando MQTT apropriado no AWS IoT Core \cite{aws_lambda_docs}.
-\item \textbf{Alexa Skills Kit (ASK):} É a plataforma de desenvolvimento que permite "ensinar" novos comandos (habilidades) à assistente de voz Alexa.
+\item \textbf{Alexa Skills Kit (ASK):} É a plataforma de desenvolvimento que permite ``ensinar'' novos comandos (habilidades) à assistente de voz Alexa.
 Através do Console de Desenvolvedor da Alexa, o sistema é configurado com \textbf{Intents} (intenções), que mapeiam frases faladas pelo usuário (ex: "ligar o ar") para uma ação específica, como acionar o \textit{endpoint} da função AWS Lambda correspondente \cite{aws_alexa_iot}.
 \end{itemize}
 
